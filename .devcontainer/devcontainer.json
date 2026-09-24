@@ -5,11 +5,10 @@
     "ghcr.io/devcontainers/features/desktop-lite:1": {
       "webPort": "6080",
       "vncPort": "5901",
-      "password": "vscode"
+      "password": "noPassword"
     }
   },
   "containerEnv": {
-    "DISPLAY": ":1",
     "VNC_RESOLUTION": "1024x600x16"
   },
   "forwardPorts": [6080],
