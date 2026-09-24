@@ -44,4 +44,8 @@ else
 fi
 
 echo "Browser desktop: open port 6080 from the Codespace PORTS tab."
+if [ -n "${CODESPACE_NAME:-}" ] && [ -n "${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN:-}" ]; then
+  echo "Codespaces UI URL: https://${CODESPACE_NAME}-6080.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}"
+fi
+echo "Local container URL: http://localhost:6080"
 echo "Log: $HOME/airgorah.log"
