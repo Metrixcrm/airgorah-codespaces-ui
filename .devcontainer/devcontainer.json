@@ -1,8 +1,9 @@
 {
   "name": "Airgorah Codespaces UI",
-  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-24.04",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-22.04",
   "features": {
     "ghcr.io/devcontainers/features/desktop-lite:1": {
+      "noVncVersion": "1.2.0",
       "webPort": "6080",
       "vncPort": "5901",
       "password": "noPassword"
@@ -11,12 +12,17 @@
   "containerEnv": {
     "VNC_RESOLUTION": "1024x600x16"
   },
-  "forwardPorts": [6080],
+  "forwardPorts": [5901, 6080],
   "portsAttributes": {
     "6080": {
       "label": "Airgorah browser desktop",
       "protocol": "http",
-      "onAutoForward": "openBrowser"
+      "onAutoForward": "notify"
+    },
+    "5901": {
+      "label": "Airgorah VNC",
+      "protocol": "tcp",
+      "onAutoForward": "ignore"
     }
   },
   "postCreateCommand": "bash .devcontainer/setup.sh",
