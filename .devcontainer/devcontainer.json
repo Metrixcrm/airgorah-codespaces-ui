@@ -2,15 +2,25 @@
   "name": "Airgorah Codespaces UI",
   "image": "mcr.microsoft.com/devcontainers/base:ubuntu-24.04",
   "features": {
-    "ghcr.io/devcontainers/features/desktop-lite:1": {}
+    "ghcr.io/devcontainers/features/desktop-lite:1": {
+      "webPort": "6080",
+      "vncPort": "5901",
+      "password": "vscode"
+    }
+  },
+  "containerEnv": {
+    "DISPLAY": ":1",
+    "VNC_RESOLUTION": "1024x600x16"
   },
   "forwardPorts": [6080],
   "portsAttributes": {
     "6080": {
       "label": "Airgorah browser desktop",
+      "protocol": "http",
       "onAutoForward": "openBrowser"
     }
   },
   "postCreateCommand": "bash .devcontainer/setup.sh",
+  "postStartCommand": "bash .devcontainer/start-airgorah.sh",
   "remoteUser": "vscode"
 }
