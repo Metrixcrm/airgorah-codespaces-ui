@@ -17,7 +17,7 @@
     "6080": {
       "label": "Airgorah browser desktop",
       "protocol": "http",
-      "onAutoForward": "notify"
+      "onAutoForward": "openPreview"
     },
     "5901": {
       "label": "Airgorah VNC",
@@ -26,6 +26,6 @@
     }
   },
   "postCreateCommand": "bash .devcontainer/setup.sh",
-  "postStartCommand": "bash .devcontainer/start-airgorah.sh",
+  "postStartCommand": "sudo /usr/local/share/desktop-init.sh && bash /workspaces/airgorah-codespaces-ui/start-ui.sh",
   "remoteUser": "vscode"
 }
