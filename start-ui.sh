@@ -5,21 +5,7 @@ export DISPLAY="${DISPLAY:-:1}"
 export GDK_BACKEND="${GDK_BACKEND:-x11}"
 
 if ! command -v airgorah >/dev/null 2>&1; then
-  echo "Airgorah is not installed yet. Rebuild the Codespace container first."
-  exit 1
-fi
-
-# Give desktop-lite/TigerVNC a moment after the container starts.
-for _ in {1..30}; do
-  if xdpyinfo -display "$DISPLAY" >/dev/null 2>&1; then
-    break
-  fi
-  sleep 1
-done
-
-if ! xdpyinfo -display "$DISPLAY" >/dev/null 2>&1; then
-  echo "Desktop display $DISPLAY is not ready."
-  echo "Reopen/restart the Codespace and run: bash start-ui.sh"
+  echo "Airgorah is not installed. The Codespace needs to be rebuilt so setup.sh runs."
   exit 1
 fi
 
@@ -36,16 +22,14 @@ PID=$!
 
 sleep 2
 if kill -0 "$PID" 2>/dev/null; then
-  echo "Airgorah PID: $PID"
+  echo "Airgorah started (PID $PID)."
 else
-  echo "Airgorah failed to start. Last log lines:"
-  tail -n 40 "$HOME/airgorah.log" || true
+  echo "Airgorah failed to start."
+  tail -n 60 "$HOME/airgorah.log" 2>/dev/null || true
   exit 1
 fi
 
-echo "Browser desktop: open port 6080 from the Codespace PORTS tab."
+echo "Open port 6080 from the Codespace PORTS tab."
 if [ -n "${CODESPACE_NAME:-}" ] && [ -n "${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN:-}" ]; then
-  echo "Codespaces UI URL: https://${CODESPACE_NAME}-6080.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}"
+  echo "Codespaces UI: https://${CODESPACE_NAME}-6080.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}"
 fi
-echo "Local container URL: http://localhost:6080"
-echo "Log: $HOME/airgorah.log"
